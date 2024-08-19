@@ -1,0 +1,1101 @@
+\documentclass[12pt]{book}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{latexsym, epsfig, ulem, cancel, multicol, hyperref}
+\usepackage{graphicx, tikz, subfigure,pgfplots}
+\usepackage{blindtext}
+\usepackage[a4paper, total={6in, 8in}]{geometry}
+\setlength{\parindent}{0pt}
+\usepackage{multirow}
+\usepackage{mathtools}
+\pgfplotsset{width=10cm,compat=1.9}
+\usepackage{amsmath, amssymb, amsthm, graphicx, hyperref}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{multirow, multicol}
+\usepackage{tikz}
+\usepackage{comment}
+\setlength{\parskip}{1ex}
+
+\newcommand{\T}[0]{\top}
+\newcommand{\F}[0]{\bot}
+\newcommand{\liminfty}[1]{\lim_{#1 \to \infty}}
+\newcommand{\limzero}[1]{\lim_{#1 \to 0}}
+\newcommand{\limto}[1]{\lim_{#1}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\odd}[0]{\mathbb{Z} - 2\mathbb{Z}}
+\newcommand{\lineint}[1]{\int_{#1}}
+\newcommand{\pypx}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\divg}{\nabla \cdot}
+\newcommand{\curl}{\nabla \times}
+\newcommand{\dydx}[2]{\frac{d #1}{d #2}}
+\newcommand{\sqbkt}[1]{\left[ #1 \right]}
+\newcommand{\paren}[1]{\left( #1 \right)}
+\newcommand{\tribkt}[1]{\left< #1 \right>}
+\newcommand{\abso}[1]{\left|#1 \right|}
+\newcommand{\zero}{\{0\}}
+\newcommand{\then}{\rightarrow}
+\newcommand{\nonneg}{\Z^+ \cup \{0\}}
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+\newcommand{\union}[2]{\bigcup_{#1}^{#2}}
+\newcommand{\inter}[2]{\bigcap_{#1}^{#2}}
+\newcommand{\openclose}[1]{\left( #1 \right]}
+\newcommand{\closeopen}[1]{\left[ #1 \right)}
+\newcommand{\compo}[2]{#1 e^{i #2}}
+
+\newtheorem*{remark}{Remark}
+\title{\textbf{Complex Variable and Linear Algebra}}
+\author{Dennis Li}
+\begin{document}
+\maketitle
+
+\tableofcontents
+
+\chapter{Intro to Complex Numbers}
+
+\section{The complex number}
+\subsection{Definition}
+A complex number is defined as follows for some real number $a,b$
+\begin{align}
+    z = a+ib
+\end{align}
+Where the letter $i$ here is defined as follows
+\begin{align}
+    i = \sqrt{-1}
+\end{align}
+We define the following operation on a complex number.
+\begin{align}
+    Re(z) = a\\
+    Im(z) = b
+\end{align}
+Where $Re$ extracts the real part of $z$ and $Im$ takes the imaginary part of $z$, that is, the coefficient of $i$. Note that the $Im$ operation does not include the number $i$. We use the symbol $\C$ to represent the set of all complex number. It is a superset of $\R$, the set of all real numbers. 
+\subsection{Conjugate}
+The conjugate of a complex number $z = a+ib$ is defined as follows
+\begin{align}
+    \Bar{z} = a - ib
+\end{align}
+Where you simply flip the sign of the imaginary part of the complex number. And the conjugate of a complex number is denoted as $\Bar{z}$.
+\subsection{Modulus}
+The modulus of a complex number is defined as follows
+\begin{align}
+    \abso{z} = \sqrt{z\Bar{z}}
+\end{align}
+If we expand and simplify, we have
+\[
+z\Bar{z}=(a+bi)(a-bi) = a^2 - (ib)^2 = a^2+b^2
+\]
+Therefore the modulus of a complex number is actually
+\begin{align}
+    \abso{z} = \sqrt{a^2 + b^2}
+\end{align}
+
+
+
+\section{Elementary Operation on Complex Number}
+\subsection{Addition and Multiplication}
+The addition and subtraction of complex number are straight forward. If we define 2 complex numbers $z_1 = a+ib$ and $z_2 = c+id$, then
+\begin{align}
+    z_1+z_2 = (a+c)+i(b+d)
+\end{align}
+Similarly for subtraction. And multiplication can be defined as
+\begin{align}
+    z_1z_2 = (a+bi)(c+di) = ac + dbi^2 + adi + cbi = (ac-db)+i(ad+cb)
+\end{align}
+And example being
+\begin{align}
+    (3+4i)(-1-6i) = -3-18i-4i+24 = 21-22i
+\end{align}
+\subsection{Division}
+The division between complex numbers can be carried out as follows.
+\begin{align}
+    \frac{z_1}{z_2} = \frac{a+ib}{c+id} 
+\end{align}
+To obtain the result, we want to make the denominator real, so we can rewrite the fraction. There are 2 approach. 
+\subsubsection{First approach}
+We set the fraction equal to a generic complex number
+\begin{align}
+    \frac{a+ib}{c+id}  = x+iy
+\end{align}
+And we will solve it as a system of equations, and obtain 2 solutions for $x$ and $y$ where you have to eventually find the right pair. This method is not recommended. 
+\subsubsection{Second Approach}
+In this method, we simply multiply the denominator by its conjugate, this will give us a real denominator that allows us to rewrite the fraction. 
+\begin{align}
+    \frac{a+ib}{c+id} = \frac{(a+ib)(c-id)}{c^2+d^2}
+\end{align}
+Since $c^2 + d^2$ is a real number, first simplify the numerator and then distribute the denominator into each term to obtain the final result. An example being:
+\begin{align*}
+    \frac{1+2i}{2+i} &= \frac{(1+2i)(2-i)}{(2+i)(2-i)}\\
+                     &= \frac{2 - i + 4i + 2}{4+1}\\
+                     &= \frac{4+3i}{5}\\
+                     &=\frac{4}{5}+\frac{3}{5}i
+\end{align*}
+
+\newpage
+\section{Polar Form of Complex Number}
+\subsection{The conplex Plane}
+
+\begin{figure}[!h]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+            axis lines = middle,
+            xlabel = {Real},
+            ylabel = {Imaginary},
+            xlabel style = {below right},
+            ylabel style = {above left},
+            xtick = {-3, -2, -1, 0, 1, 2, 3},
+            ytick = {-3, -2, -1, 0, 1, 2, 3},
+            yticklabels = {$-3i$, $-2i$, $-i$, $0$, $i$, $2i$, $3i$},
+            xmin = -3.5, xmax = 3.5,
+            ymin = -3.5, ymax = 3.5,
+            width = 12cm, height = 12cm,
+            enlarge x limits = 0.15,
+            enlarge y limits = 0.15,
+        ]
+        % Adding the point (1, 1) which corresponds to 1+i
+        \addplot[
+            only marks,
+            mark=*,
+            mark options={fill=red,draw=black}
+        ] coordinates {(1,1)};
+        
+        % Adding a label for the point 1+i
+        \node[label={above right:{\scriptsize $1+i$}},circle,fill,inner sep=1.5pt] at (axis cs:1,1) {};
+         % Adding the vector from (0,0) to (-1,2)
+        \addplot[
+            ->, % Arrow style
+            thick, % Thickness of the line
+            color=blue % Color of the vector
+        ] coordinates {(0,0) (-1,2)};
+        
+        % Adding a label for the point -1+2i
+        \node[label={above:{\scriptsize$-1+2i$}},circle,fill,inner sep=1.5pt] at (axis cs:-1,2) {};
+        % Adding the vector for -2+i
+        \addplot[
+            ->, % Arrow style
+            thick, % Thickness of the line
+            color=red % Color of the vector
+        ] coordinates {(0,0) (-2,1)};
+        
+        % Label for -2+i
+        \node[label={above left:{\scriptsize$-2+i$}},circle,fill,inner sep=1.5pt] at (axis cs:-2,1) {};
+        
+        % Adding the vector for the sum (-3+3i)
+        \addplot[
+            ->, % Arrow style
+            thick, % Thickness of the line
+            color=green % Color of the vector
+        ] coordinates {(0,0) (-3,3)};
+        
+        % Label for the sum -3+3i
+        \node[label={above left:{\scriptsize$-3+3i$}},circle,fill,inner sep=1.5pt] at (axis cs:-3,3) {};
+         % Vector from tip of -2+i to tip of -3+3i, indicating the addition
+        \addplot[
+            ->, % Arrow style
+            dashed, % Dashed line style
+            thick, % Thickness of the line
+            color=purple % Color of the vector
+        ] coordinates {(-2,1) (-3,3)};
+
+    
+        \end{axis}
+    \end{tikzpicture}
+    \caption{Representation of complex numbers in a complex plane}
+    \label{fig:1.1}
+\end{figure}
+
+Above is the complex plane, which is basically a Cartesian plane where the $y$ axis is multiplied by $i$. Think of it like a Cartesian plane that is composed of $\R \times i\R$.
+
+You can effectively represent all complex number as a point on the complex plane with its real part as the $x$ coordinate and the imaginary part as the $y$ coordinate. In the graph, we plotted $1+i$ on the coordinate $(1,1)$.
+
+Another way to think of complex number is to think of it as a vector from the origin to the point where the complex number resides. The advantage of thinking it like this is, it makes addition of complex number more intuitive as it coincides with the addition of vectors on a 2D plane. You can see the example in the same graph above. 
+\newpage
+Thinking of them like a vector also makes modulus more intuitive, since it is defined similarly to the magnitude of a vector. (Even the symbol is the same.) And if we were to draw all complex number that has the modulus of $1$, that is $\abso{z} = 1$, we would obtain something very familiar.
+
+\begin{figure}[!h]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+            axis lines = middle,
+            xlabel = {Real},
+            ylabel = {Imaginary},
+            xlabel style = {below right},
+            ylabel style = {above left},
+            xtick = { -1, 0, 1},
+            ytick = { -1, 0,  1},
+            yticklabels = { $-i$, $0$, $i$},
+            xmin = -1.3, xmax = 1.3,
+            ymin = -1.3, ymax = 1.3,
+            width = 7.5cm, height = 7.5cm,
+            enlarge x limits = 0.15,
+            enlarge y limits = 0.15,
+            axis equal, % Ensures the aspect ratio is 1:1
+        ]
+        
+        % Drawing the unit circle |z| = 1
+        \addplot[
+            domain=0:360,
+            samples=100,
+            thick,
+            color=blue,
+        ] ({cos(x)}, {sin(x)});
+        
+        % Label for the unit circle
+        \node[label={right:{\scriptsize $|z| = 1$}}] at (axis cs:1,1) {};
+        
+        \end{axis}
+    \end{tikzpicture}
+    \caption{The graph of the unit circle in the complex plane}
+    \label{fig:1.2}
+\end{figure}
+
+After familiarizing ourselves with expressing complex number as a point on the complex plain, we can try to express it in a different form. 
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=0.5\linewidth]{pictures/pic1.3.1.png}
+    \caption{A complex number $z = x+iy$}
+    \label{fig:1.3}
+\end{figure}
+Given a complex number $z = x+iy$, we can plot it on the complex plane as shown above. Where $r$ is the distance from the origin, or the modulus of the complex number, and $\theta$ the angle of the supposed \textit{vector} with the real axis. 
+
+\subsection{Argument of a Complex Number}
+\subsubsection{Principle Argument}
+The angle $\theta$ this supposed vector make with the real axis is called the \textbf{principle argument} of the complex number, the principle argument of the complex number $z$ is denoted as $Arg(z)$. For example, the argument of the complex number $1+i$ would be 
+\begin{align}
+    Arg(1+i) = \tan^{-1}\paren{\frac{1}{1}} = \frac{\pi}{4}
+\end{align}
+The range of the principle argument is $\theta \in \openclose{-\pi,\pi}$. There are some minor details that require some care.
+\begin{enumerate}
+    \item if $z_{(1,4)}=a+ib$ is in the first and the fourth quadrant of the complex plane, the principle argument is simply the following
+    \begin{align}
+        Arg(z_{(1,4)}) = \tan^{-1}\paren{\frac{b}{a}}
+    \end{align}
+    \item if $z = a+ib$ is in the second quadrant, the principle argument requires some tweak
+    \begin{align}
+        Arg\paren{z_2} = \pi - \tan^{-1}\paren{\frac{|b|}{|a|}}
+    \end{align}
+    \item if $z_3=a+ib$ is in the third quadrant, the principle argument is
+    \begin{align}
+        Arg(z_3) = \tan^{-1}\paren{\frac{|b|}{|a|}} - \pi
+    \end{align}
+\end{enumerate}
+These tweaks are done so it properly reflects the angle of the complex number and the real axis. 
+\newpage
+\subsubsection{Argument}
+There is another way of defining the angle between the complex number and the real axis. It is simply called the \textbf{argument} of the complex number. Regardless of the angle of the principle argument, you can always rotate another $2\pi$ radian and return to the same position. Therefore there the \textbf{argument} of a complex number $z$ is defined slightly different from the principle argument. The argument of a complex number $z$ is denoted as $arg(z)$
+\begin{enumerate}
+    \item if $z_{(1,4)}=a+ib$ is in the first and the fourth quadrant of the complex plane, the argument is simply the following
+    \begin{align}
+        arg(z_{(1,4)}) = \tan^{-1}\paren{\frac{b}{a}} + 2\pi n \quad n \in \Z
+    \end{align}
+    \item if $z = a+ib$ is in the second quadrant, the argument requires some tweak
+    \begin{align}
+        arg\paren{z_2} = \pi - \tan^{-1}\paren{\frac{|b|}{|a|}} + 2\pi n \quad n \in \Z
+    \end{align}
+    \item if $z_3=a+ib$ is in the third quadrant, the argument is
+    \begin{align}
+        arg(z_3) = \tan^{-1}\paren{\frac{|b|}{|a|}} - \pi + 2\pi n \quad n \in \Z
+    \end{align}
+\end{enumerate}
+What happens here is that you can add an arbitrary integer multiple of $2\pi$ and you will come back to the same location. Therefore there are infinitely many outcomes. 
+
+\subsection{Polar Form of a Complex Number}
+Going back to figure \ref{fig:1.3.1}, we now have a good definition for the angle (the argument) and the distance (the modulus) of a complex number. We can actually define a complex number using the idea of a polar coordinate system. Think of this unit circle $\abso{z} = 1$ in the complex plane. 
+
+\begin{figure}
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+            axis lines = middle,
+            xlabel = {Real},
+            ylabel = {Imaginary},
+            xlabel ={},
+            ylabel ={},
+            xtick = \empty,
+            ytick = \empty,
+            xmin = -1.5, xmax = 1.5,
+            ymin = -1.5, ymax = 1.5,
+            width = 7.5cm, height = 7.5cm,
+            enlarge x limits = 0.15,
+            enlarge y limits = 0.15,
+            axis equal, % Ensures the aspect ratio is 1:1
+        ]
+        
+        % Drawing the unit circle |z| = 1
+        \addplot[
+            domain=0:360,
+            samples=100,
+            thick,
+            color=blue,
+        ] ({cos(x)}, {sin(x)});
+        
+        % Plotting the complex number 1/sqrt(2) + i/sqrt(2)
+        \addplot[
+            ->, % Arrow style
+            thick, % Thickness of the line
+            color=red % Color of the vector
+        ] coordinates {(0,0) (0.7071,0.7071)}; % 1/sqrt(2) is approximately 0.7071
+        
+        % Label for the complex number
+        \node[label={above right:{\scriptsize $z = a + ib$}},circle,fill,inner sep=1.5pt] at (axis cs:0.7071,0.7071) {};
+        
+        \end{axis}
+    \end{tikzpicture}
+    \caption{The graph of $|z| = R$}
+    \label{fig:1.4}
+\end{figure}
+
+Let $\abso{z} = R$ and $arg(z) = \theta$ . And we can in fact express the position of the given complex number on the graph as $z \colon \paren{R\cos \theta ,R\sin \theta}$, and the entire complex number as
+\begin{align}
+    z = R\cos \theta + iR\sin\theta
+\end{align}
+Recall the \textbf{Euler's Identity}
+\begin{align}
+    re^{i\theta} = r\cos\theta + ir\sin\theta
+\end{align}
+We can rewrite our complex number as
+\begin{align}
+    z = Re^{i\theta} \quad 
+    \begin{cases}
+        R = \abso{z}\\
+        \theta = arg(z) \; \text{or} \; Arg(z)
+    \end{cases}
+\end{align}
+This is called the \textbf{polar form} of a complex number. 
+\subsubsection{Modulus in the Polar Form}
+If we have a complex number in the form
+\[
+z = R\cos \theta + iR\sin\theta
+\]
+Its modulus would be, as defined previously
+\[
+\Bar{z} = R\cos \theta - iR\sin\theta
+\]
+Since cosine is an even function, and sine is an odd function we can manipulate it as follows
+\[
+\Bar{z} = R\cos \paren{-\theta} + iR\sin\paren{-\theta}
+\]
+With Euler's identity, we find that it is
+\begin{align}
+    \Bar{z} = Re^{-i\theta}
+\end{align}
+If we are to multiply the complex number $z$ with its conjugate, we have
+\[
+z\Bar{z} = \paren{Re^{i\theta}}\paren{Re^{-i\theta}} = R^2e^{i\theta-i\theta} = R^2
+\]
+Which matches our expectation from what we defined previously. and with the polar form of a complex number defined, we can now do more fancy operations on them.
+
+\section{Powers of Complex Number}
+We can now raise complex numbers to different powers with our new definition. The square of a complex number $z = Re^{i\theta}$ can simply be obtained by 
+\begin{align}
+    z^2 = \paren{Re^{i\theta}}^2 = R^2 e^{2i\theta}
+\end{align}
+Similarly, we can take the square root, or the $\frac{1}{2}$ power of $z$ as follows
+\begin{align}
+    \sqrt{z} = z^{\frac{1}{2}} = R^{\frac{1}{2}}e^{\frac{1}{2}i\theta}
+\end{align}
+Simply expanding it back to the expanded form, we will obtain
+\begin{align}
+    \sqrt{z} = \frac{R}{2}\cos\paren{\frac{\theta}{2}} + \frac{R}{2}i\sin\paren{\frac{\theta}{2}}
+\end{align}
+You can use this to define the $n$-th power of a complex number. 
+\begin{align}
+    z^n = R^n e^{ni\theta} = R^n\cos\paren{n\theta} + R^ni\sin\paren{n\theta}
+\end{align}
+Since the argument of a complex number can be manipulated freely by adding integer multiple of $2\pi$, we define the equality of 2 complex number $u,w \in \C$ as
+\begin{align}
+    u = w \iff
+    \begin{cases}
+        R_u = R_w\\
+        \theta_u - \theta_w = 2\pi n \quad n \in \Z
+    \end{cases}
+\end{align}
+\subsubsection{Example 1.4.1}
+Here we provide an example of finding the square root of the complex number $z = 1+i$. First we would rewrite it in polar form, to do so, first we find its modulus. 
+\[
+R = \sqrt{(1+i)(1-i)} = \sqrt{2}
+\]
+Then we find its argument
+\[
+\theta = arg(z) = \tan^{-1} \paren{\frac{1}{1}} = \frac{\pi}{4} + 2\pi n \quad n \in \Z
+\]
+Now we can rewrite the complex number in its polar form
+\[
+z = \sqrt{2}e^{i\paren{\frac{\pi}{4} + 2\pi n}}
+\]
+Now we can begin to take the square root of it
+\[
+\sqrt{z} = \sqrt{\sqrt{2}}\exp\paren{\frac{1}{2}i\paren{{\frac{1}{2}i\paren{\frac{\pi}{4} + 2\pi n}}}}
+\]
+\textit{PS: We used $exp()$ to indicate the power of $e$ since the power is getting out of hand.}
+We can define the result of our square root with a new symbol $u = R_u e^{i\theta_u}$. And we have found that
+\[
+R_u = 2^\frac{1}{4}
+\]
+And the argument of our newly acquired complex number
+\[
+\theta_u = \frac{1}{2}\paren{\frac{\pi}{4} + 2\pi n} = \frac{\pi}{8} + \pi n 
+\]
+And the final result $u$ would be 
+\[
+u = 2^\frac{1}{4} \exp \paren{i \paren{\frac{\pi}{8}+\pi n}}
+\]
+\subsubsection{Example 1.4.2}
+Things gets more interesting when, instead of calculating powers directly, you solve for the solution of an equation like $z^2 = a+ib$. In this case, just like when you are solving $x^2 = 1$ for real numbers, you will obtain 2 results. We can try it via this example.
+\[
+z^2 = u
+\]
+Now, we would first rewrite them as polar form
+\[
+R_z^2e^{2i\theta_z} = \compo{R_u}{\theta_u}
+\]
+Using the definition for equality as discussed previously, we know that 2 things must be true
+\[
+\begin{cases}
+    R_z^2 = R_u\\
+    2\theta_z - \theta_u = 2\pi n \quad n \in \Z
+\end{cases}
+\]
+First of all, we examine the equivalence of $R$.
+\[
+R_z^2 = R^u \then R= \pm \sqrt{R_u}
+\]
+Since radius, or distance from the origin cannot be negative ($R \in +\R$), we only take the positive result. And then we work on the equivalence of $\theta$.
+\[
+2\theta_z - \theta_u = 2\pi n \quad n \in \Z
+\]
+Move it around, we have
+\[
+\theta_u = 2\paren{\theta_z - \pi n}
+\]
+Since we are only expecting 2 solutions, we take $n \in \{ 0,1\}$ to be our solutions.
+\subsubsection{Summary 1.4.1-2}
+We can solve the $n$-th power equation, for some positive integer $n$, with the following steps. Say we have
+\[
+z^n = a+ib = w
+\]
+We first rewrite it as
+\[
+ \paren{\compo{R_z}{\theta_z}}^n = \compo{\abso{w}}{\theta_w}
+\]
+and then find $R$
+\[
+R_z = \sqrt[n]{w}
+\]
+Set up the relationship between $\theta$
+\[
+n\theta_z - \theta_w = 2\pi k
+\]
+Here we have the range of $k \in \{0,1,\ldots,n-1\}$. Then, put $R_w$ and $\theta_w$ that we found together to obtain all the solutions.
+\[
+w = \compo{R_w}{\theta_w} \quad k \in \{0,1,\ldots,n-1\}
+\]
+\subsection{Roots of Unity}
+If we have this special equation shown below
+\[
+z^n = 1
+\]
+Where we have a $z \in \C$ equals 1, the solutions are called the roots of unity. This is because they are evenly distributed on the unit circle. For example, if we were to plot the solutions for $z^4 = 1$, it would look as follows:
+
+\begin{figure}[!h]
+    \centering
+        \begin{tikzpicture}
+        \begin{axis}[
+            axis lines = middle,
+            xtick = \empty,
+            ytick = \empty,
+            xmin = -1.5, xmax = 1.5,
+            ymin = -1.5, ymax = 1.5,
+            width = 7.5cm, height = 7.5cm,
+            enlarge x limits = 0.15,
+            enlarge y limits = 0.15,
+            axis equal, % Ensures the aspect ratio is 1:1
+        ]
+        
+        % Drawing the unit circle |z| = 1
+        \addplot[
+            domain=0:360,
+            samples=100,
+            thick,
+            color=blue,
+        ] ({cos(x)}, {sin(x)});
+        
+        % Plotting the roots of unity
+        \addplot[
+            only marks,
+            mark=*,
+            mark options={fill=red},
+            point meta=explicit symbolic,
+        ] coordinates {(1,0) (0,1) (-1,0) (0,-1)}
+        node[above right] at (axis cs:1,0) {\scriptsize $1$}
+        node[above right] at (axis cs:0,1) {\scriptsize $i$}
+        node[below left] at (axis cs:-1,0) {\scriptsize $-1$}
+        node[below left] at (axis cs:0,-1) {\scriptsize $-i$};
+        
+        \end{axis}
+    \end{tikzpicture}
+    \caption{4th roots of unity}
+    \label{fig:1.5}
+\end{figure}
+We can therefore easily tell that the solutions would be $-1,1,i,-i$. And this is called \textbf{Roots of unity}.
+
+
+\section{Complex Exponents and Logarithms}
+\subsection{Solving for Complex Exponents}
+We have only discussed complex numbers with real powers. What happens if we were to raise a complex number to a complex power. First, we would examine. We would first start from a simpler example. 
+\begin{align}
+    w = e^z
+\end{align}
+First of all, we can let $z = x + iy$. And then we can rewrite the equation as
+\begin{align}
+w = e^{\paren{x+iy}} = e^xe^{iy}
+\end{align}
+We also know that $w = \compo{R}{\theta}$, so we can expand the equation further
+\[
+\compo{R}{\theta} = e^xe^{iy}
+\]
+We notice that
+\[
+\begin{cases}
+    R = e^x\\
+    y - \theta = 2\pi n \quad n \in \Z
+\end{cases}
+\]
+Therefore we can conclude that
+\[
+x = \ln(R)
+\]
+\[
+y = \theta - 2 \pi n \quad n \in \Z
+\]
+\[
+z = x+iy
+\]
+\subsubsection{Example 1.5.1}
+We will use an example to show how this works. let $e^z = 1+i$.
+\begin{align*}
+    e^xe^{iy} &= 1+i\\
+    e^xe^{iy} &= \compo{\sqrt{2}}{\frac{\pi}{4}}\\
+    e^x &= \sqrt{2}\\
+    x &= \frac{1}{2}\ln 2\\
+    y &= 2\pi n + \frac{\pi}{4} \quad n \in \Z\\
+    \therefore z &= \frac{1}{2}\ln 2 + i \paren{2\pi n + \frac{\pi}{4}}
+\end{align*}    
+Note that there are \textbf{infinitely many} solutions. 
+
+\subsubsection{Logarithms of Complex Numbers}
+After raising $e$ to a complex exponents, we study how to calculate the natural logarithm of a complex number. Say
+\begin{equation}
+  \log\paren{w}=z 
+\end{equation}
+Note that we use $\log$ to indicate natural log with complex number for disambiguation purposes as you will see soon. We know that this can be rewritten into 
+\[
+w = e^z
+\]
+And the calculation would follow the same procedure as our previous example. With $w = 1+i$, we will eventually obtain 
+\[
+\log(w) = \frac{1}{2}\ln 2 + i \paren{2\pi n + \frac{\pi}{4}} \quad n\in \Z
+\]
+However, there is a slight tweak. You may see the logarithm be written with the first letter in uppercase.
+\[
+\text{Log}(w) = z
+\]
+This means the \textbf{principle logarithm} of $w$. Instead of using the argument for the angle, we will use the principle argument. In our previous example, the principle logarithm of $1+i$ is 
+\[
+\text{Log}(w) = \frac{1}{2}\ln 2 + \frac{\pi}{4}i
+\]
+We can write out the general formula for the principle logarithm and logarithm of a complex number
+\begin{align}
+    \log(z) = \ln \abso{z} + i \text{arg}(z)\\
+    \text{Log}(z) = \ln \abso{z} + i \text{Arg}(z)
+\end{align}
+
+
+\section{Complex Exponents on Complex Number}
+With the previous foundation, we can now explore raising a complex number to a complex exponent. How would we calculate $z^w$ where $ z,w \in \C$. We can use the fact that
+\[
+z^w = e^{\log\paren{z^w}} = e^{w\log z}
+\]
+We have learned the way to evaluate $\log z$, it can be written as $ \log z = \ln \abso{z} + i\arg(z)$. And we can rewrite the exponent as
+\[
+z^w = e^{w \paren{\ln \abso{z} + i\arg (z)}}
+\]
+Suppose $w = a+ib$, then we can distribute it into the parenthesis. Here we will only examine the exponent.
+\[
+w \paren{\ln \abso{z} + i\arg (z)}= \paren{a+ib} \paren{\ln \abso{z} + i\arg (z)} 
+\]
+This simplifies to
+\[
+a\ln\abso{z}+ia\arg(z) + ib\ln\abso{z}-b\arg(z)
+\]
+We notice that this can be regrouped
+\[
+\paren{a\ln\abso{z}- b\arg(z)} + i\paren{b\ln\abso{z} +a\arg(z) }
+\]
+Which is in the generic form of a complex number $x + iy$. We have managed to simplify $z^w$ to the following
+\[
+z^w = \exp\paren{\paren{a\ln\abso{z}- b\arg(z)} + i\paren{b\ln\abso{z} +a\arg(z) }}
+\]
+Now, we simply let $x = \paren{a\ln\abso{z}- b\arg(z)}$ and $y = \paren{b\ln\abso{z} +a\arg(z) } $, we can write our complex number as
+\[
+z^w = e^{x+iy}
+\]
+And we can use what we have learned on\textit{ equation $1.31$ }to expand it further. 
+\subsubsection{Example 1.6.1}
+Find $i^i$. First, we let $i^i = z$, then we rewrite the expression
+\[
+i^i = e^{i \log i } = z
+\]
+We then evaluate
+\[
+\log i = i\paren{\frac{\pi}{2}+ 2\pi n} \quad n \in \Z
+\]
+then, we evaluate
+\[
+i \log i = -\paren{\frac{\pi}{2}+ 2\pi n}
+\]
+Therefore
+\[
+i^i = \exp \paren{-\paren{\frac{\pi}{2}+ 2\pi n}}
+\]
+Which is actually a set of real numbers in this case here. 
+
+
+
+
+
+\chapter{Functions of Complex Variable}
+\section{Definitions}
+In this chapter, we discuss functions with complex variables. It works just as what we have learned in our calculus classes. We can simply define a complex function $f \colon \C \to \C$ like the following examples.
+\[
+f(z) = z \quad f(z) = \frac{1}{z}
+\]
+The function takes in a complex number and spits out a complex number. You may also see notations like
+\[
+f(x,y) = z = x+iy
+\]
+This expression simply uses the fact that every complex number can be written as $x+iy$, therefore we can treat them as if we are on a $xy-plane$ and is dealing with a 2 variable function. Sometimes, we can even define it like follows
+\[
+f(z) = \frac{y}{x}
+\]
+This means that for each complex variable input, we will define $y = \text{Im}(z)$ and $x = \text{Re}(z)$. Since a complex variable behave like 2 independent variables, we can in fact define the real and the imaginary part of a complex function separately as follows
+\begin{align}
+    f(z) = u(x,y) + iv(x,y)
+\end{align}\label{eq:2.1}
+Where the real $u(x,y)$ and the imaginary part $v(x,y)$ are different real-valued functions of $x,y$, the real and the imaginary part of the input. Remember that $u \colon \R^2 \to \R$ and $v \colon \R^2 \to \R$.
+
+With this definition in mind, we can look at the complex function $f(z) = z$ as follows
+\begin{align}
+    f(z) = x+iy \quad \begin{cases}
+        u(x,y) = x\\
+        v(x,y) = y
+    \end{cases}
+\end{align}
+Similarly, we can dissect $f(z) = z^2$ as follows
+\begin{align}
+    f(z) = z^2 = x^2 + 2ixy - y^2  \quad \begin{cases}
+        u(x,y) = x^2-y^2\\
+        v(x,y) = 2xy
+    \end{cases}
+\end{align}
+Another example being $f(z) = \frac{1}{z}$
+\begin{align}
+    f(z) = \frac{1}{z} = \frac{1}{x+iy} = \frac{x-iy}{x^2+y^2} \quad \begin{cases}
+        u(x,y) = \frac{x}{x^2+y^2}\\
+        v(x,y) = \frac{-y}{x^2+y^2}
+    \end{cases}
+\end{align}
+
+\section{Limits of Complex Functions}
+We can evaluate limits of a complex function similarly to that of a real valued function like what we did in Calculus. Let $f(z) = z^2 + 5z + 2i$, and we would like to find its limit as $z \to i+1$, we simply do the follows
+\[
+\limto{z \to 1+i} z^2 + 5z + 2i = (1+i)^2 + 5(1+i) + 2i = 5+9i
+\]
+Similarly to what we discussed previously, we can also define limits a little differently, such as follows.
+\[
+\limto{(x,y) \to (1,1)} (x+iy)^2 + 5(x+iy) + 2i
+\]
+Recall in calculus, if we want to show a limit does not exist, we have show that the limits from both sides do not agree. Example being
+\[
+\limto{x \to 0} \frac{1}{x} = DNE
+\]
+We know this is true because
+\[
+\limto{x \to 0^-} \frac{1}{x} = -\infty \neq \limto{x \to 0^+} \frac{1}{x} = \infty
+\]
+\textbf{PS: }\textit{Another fact is that $\infty$ is also another way of saying $DNE$. So even if they both converges to $\infty$ at $x=0$, such as $\frac{1}{x^2}$, the limit still $DNE$.}
+
+This is a little bit different for a complex number. Since instead of being in a real number line, we are in a complex plane. This means that a limit can approach the number from infinitely many direction. And as long as 1 of them disagrees, the limit does not exist. You just need to pick 2 paths from the infinitely many of paths and showed that they lead to different result.
+\begin{figure}[!h]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+            axis lines = middle,
+            xtick = \empty,
+            ytick = \empty,
+            xmin = -1.5, xmax = 2.5,
+            ymin = -2.5, ymax = 1.5,
+            width = 7.5cm, height = 7.5cm,
+            enlarge x limits = 0.15,
+            enlarge y limits = 0.15,
+            axis equal, % Ensures the aspect ratio is 1:1
+        ]
+        
+        % Mark the point 1 - i
+        \addplot[
+            only marks,
+            mark=*,
+            mark options={fill=red},
+        ] coordinates {(1,-1)};
+        
+        % Label the point 1 - i
+        \node[label={above right:{\scriptsize $1-i$}},circle,fill,inner sep=1.5pt] at (axis cs:1,-1) {};
+        
+        % First path: Along the real axis from the left
+        \addplot[
+            ->, % Arrow style
+            thick, % Thickness of the line
+            color=blue,
+            domain=-1:1,
+            samples=2,
+        ] ({x}, {-1});
+        
+        % Second path: Along the imaginary axis from above
+        \addplot[
+            ->, % Arrow style
+            thick, % Thickness of the line
+            color=green,
+            domain=1:-1,
+            samples=2,
+        ] ({1}, {x});
+        
+        \end{axis}
+    \end{tikzpicture}
+    \caption{Straight paths}
+    \label{fig:2.1}
+\end{figure}
+
+Your path can be two straight lines approaching from different direction.
+
+
+\begin{figure}[!h]
+    \centering
+    \begin{tikzpicture}
+    \begin{axis}[
+        axis lines = middle,
+        xtick = \empty,
+        ytick = \empty,
+        xmin = -1.5, xmax = 2.5,
+        ymin = -2.5, ymax = 1.5,
+        width = 7.5cm, height = 7.5cm,
+        enlarge x limits = 0.15,
+        enlarge y limits = 0.15,
+        axis equal, % Ensures the aspect ratio is 1:1
+    ]
+    
+    % Mark the point 1 - i
+    \addplot[
+        only marks,
+        mark=*,
+        mark options={fill=red},
+    ] coordinates {(1,-1)};
+    
+    % Label the point 1 - i
+    \node[label={above right:{\scriptsize $1-i$}},circle,fill,inner sep=1.5pt] at (axis cs:1,-1) {};
+    
+    % Semicircular path approaching 1 - i
+    \addplot[
+        ->, % Arrow style
+        thick, % Thickness of the line
+        color=blue,
+        domain=0:180,
+        samples=100,
+    ] ({2 + cos(x)}, {-1 + sin(x)});
+    
+    % Parabolic path approaching 1 - i
+    \addplot[
+        ->, % Arrow style
+        thick, % Thickness of the line
+        color=green,
+        domain=-1:1,
+        samples=100,
+    ] ({x}, {-2 + (x)^2});
+    
+    \end{axis}
+\end{tikzpicture}
+\caption{Curve paths}
+\label{fig:2.2}
+\end{figure}
+
+You can even use curves arbitrarily chosen. So doing limits with a complex function is trickier but offers more playing field. We can look at it with some examples.
+\subsubsection{Example 2.2.1}
+Show that \[
+\limto{z \to (0,0)} \frac{\Bar{z}}{z}
+\]
+does not exists. We begin by trying the simplest option, the axis. We define the first path to be $c_1 \colon x$, which is simply looking at it on the real number line in the complex plane. We have the following
+\[
+\limto{(x,0)\to (0,0)}\frac{x}{x} = 1
+\]
+We omit the conjugate since the real part of a complex number remain unchanged after conjugate. Then we define a second path $c_2 \colon iy$. We will approach it from the imaginary number line. 
+\[
+\limto{(0,y)\to(0,0)} \frac{-iy}{iy} = -1
+\]
+The sign before the numerator changed due to the properties of the complex conjugate and we obtained $-1 \neq 1$. Therefore we can conclude that the limit does not exists.
+\subsubsection{Example 2.2.2}
+Show that $\limto{z \to 0} \paren{\frac{\Bar{z}}{z}}^2$ Does not exists. Here, we can try using the paths we have chosen before, where $c_1 \colon x$ and $c_2 \colon iy$
+\[
+\limto{(x,0)\to (0,0)}\frac{x^2}{x^2} = 1
+\]
+\[
+\limto{(0,y)\to(0,0)} \paren{\frac{-iy}{iy}}^2 = 1
+\]
+We failed to find a disagreement in this example with our previous choice. So we have to try something different. We try using the path that looks like $y=x$ and $y=-x$ in our familiar Cartesian coordinate system. It will work a little differently compare to our previous example.
+
+Since our goal is to reach $(0,0)$ eventually, we just need to define something that can land on this point. First, we define our new path $c_3 \colon t+it$. This gives us that diagonal line in the complex plane. Now, we can evaluate the limit. 
+\begin{align*}
+  \limto{t \to 0} \paren{\frac{t-it}{t+it}}^2 = \frac{t^2 + 2it^2-t^2}{t^2+t^2} = \paren{\frac{2it^2}{2t^2}}^2 = i^2 = -1
+\end{align*}
+We see that the limit on $c_3$ is different from the limit obtained by $c_1,c_2$, therefore we can conclude that the limit does not exists. 
+
+Try out different paths, and find something that works in your favor. You may even try using the polar form to approach it in a circular path like we showed in graph  \ref{fig:2.2}. 
+
+\section{Derivatives of Complex Functions}
+Recall that in our familiar $\R \times \R$, or $xy$-plane, we are quite familiar with the definition of the derivatives.
+\begin{align}
+    f'(x) = \limto{h \to 0}\frac{f(x+h)-f(x)}{h}
+\end{align}
+Here we would use a similar definition for our complex functions
+\begin{align}
+    f'(z) = \limto{z \to 0}\frac{f(z+h)-f(z)}{h}
+\end{align}
+Here we have to be mindful that $z,h \in \C$. So it behaves quite differently from our real valued function. And as seen previously, for a limit to exist in the complex world requires much more nuance than in the real number world. 
+
+Now we would use some examples to see differentiation in action.
+\subsubsection{Example 2.3.1}
+Show that $f(z) = \Bar{z}$ is not differentiable anywhere. Or in other word
+\[
+\forall z \in \C, \; \limto{h \to 0}\frac{\overline{z+h}-\Bar{z}}{h} = DNE
+\]
+\begin{remark}
+We can use this simple fact about conjugate.
+    \begin{align}
+        \overline{z+w} = \Bar{z}+ \Bar{w}
+    \end{align}
+\end{remark}
+Hafter applying the property of conjugate, we obtained the following
+\[
+f'(z) = \limto{h \to 0}\frac{\Bar{h}}{h}
+\]
+And we have already shown in \textit{example 2.2.1}, that this limit does not exists. So we can conclude that this complex function is \textbf{continuous} but \textbf{not differentiable} \textbf{anywhere} in the complex plane. 
+
+\subsubsection{Example 2.3.2}
+Let $f(z) = \frac{1}{z}$.  Show that $f'(z) = \frac{-1}{z^{2}}$ using the definition of the derivative.  
+
+To solve it, we let $f(z)=\frac{1}{z}$, and we have
+\begin{align*}
+    f'(z)   &=\lim_{h\to 0}\frac{\frac{1}{z+h}-\frac{1}{z}}{h}\\
+            &=\frac{\frac{z-(z+h)}{z(z+h)}}{h}\\
+            &=\lim_{h\to 0}\frac{-h}{h(z^2+zh)}\\
+            &=\lim_{h\to 0}\frac{-1}{z^2+zh}\\
+            &=\frac{-1}{z^2}
+\end{align*}
+\subsection{Common Derivatives}
+Most of the complex function has a derivative similar to what we have studied in calculus. Here are some common ones.
+\begin{align*}
+    \dydx{}{z} &z^n = nz^{n-1}\\
+    \dydx{}{z} &a^z = a^z\ln\paren{a}\\
+    \dydx{}{z} &e^z = e^z\\
+    \dydx{}{z} &\ln\paren{z} = \frac{1}{z}\\
+    \vdots
+\end{align*}
+In fact, most of what we learned in calculus matches what we would expect from complex function that looks like the good old calculus functions. 
+
+\section{Cauchy-Riemann Equations}
+In this section we would define a stronger tool to evaluate derivatives of complex functions. We would use partial derivatives we learned when we were studying multivariable calculus. Here is a quick call back for reviewing purposes. Say we have this function $f \colon \R^2 \to \R$ and is denoted as $f(x,y) = xy$. We have
+\begin{align}
+\pypx{}{x}xy= f_x(x,y) = y\\
+\pypx{}{y}xy = f_y(x,y) = x
+\end{align}
+Basically we are treating every variable that we are not interested as a constant, and take the derivative with respect to only what we are interested, as indicated in the \textit{numerator} of the partial derivative symbol.
+Also recall from \textit{equation} \ref{eq:2.1} that we can rewrite a complex function as
+\[
+f(x,y) = u(x,y) + iv(x,y)
+\]
+We will define a set of equation as follows. Let $f(z) = u(z)+iv(z)$, and if $\exists f'(z)$ at $z_0$, then
+\begin{align}
+    \begin{cases}
+        u_x(z_0) = v_y(z_0)\\
+        u_y(z_0) = -v_x(z_0)
+    \end{cases}
+\end{align}
+If the above sets of equation holds, then the function has derivative at $z_0$, expressed as
+\begin{align}
+    f'(z_0) = u_x(z_0) + iv_x(z_0)
+\end{align}
+And if \textit{equation 2.10} failed, then this function has no derivative at $z_0$.
+
+\subsubsection{Example 2.4.1}
+
+Let's consider two functions \( f(z) = \overline{z} \) and \( f(z) = 2x + ixy^2 \), and determine whether they are differentiable at a given point \( z_0 \) using the Cauchy-Riemann equations.
+
+
+Given the function \( f(z) = \overline{z} \), where \( z = x + iy \), we can express \( f(z) \) as:
+\[
+f(z) = \overline{z} = x - iy
+\]
+Here, \( u(x,y) = x \) and \( v(x,y) = -y \).
+
+To determine if \( f(z) \) is differentiable, we compute the partial derivatives:
+\[
+\pypx{u}{x} = \pypx{}{x}x = 1, \quad \pypx{u}{y} = \pypx{}{y}x = 0
+\]
+\[
+\pypx{v}{x} = \pypx{}{x}(-y) = 0, \quad \pypx{v}{y} = \pypx{}{y}(-y) = -1
+\]
+
+According to the Cauchy-Riemann equations, for \( f(z) \) to be differentiable at \( z_0 \), the following must hold:
+\[
+\pypx{u}{x} = \pypx{v}{y} \quad \text{and} \quad \pypx{u}{y} = -\pypx{v}{x}
+\]
+
+Substituting the values:
+\[
+1 \neq -1 \quad \text{and} \quad 0 = 0
+\]
+Since \( \pypx{u}{x} \neq \pypx{v}{y} \), the Cauchy-Riemann equations do not hold, so the function \( f(z) = \overline{z} \) is \textbf{not differentiable} at any point \( z_0 \) in the complex plane.
+
+\subsubsection{Example 2.4.2}
+
+Now, consider the function \( f(z) = 2x + ixy^2 \), where \( z = x + iy \). We can express \( f(z) \) as:
+\[
+f(z) = 2x + ixy^2
+\]
+Here, \( u(x,y) = 2x \) and \( v(x,y) = xy^2 \).
+
+Let's compute the partial derivatives:
+\[
+\pypx{u}{x} = \pypx{}{x}2x = 2, \quad \pypx{u}{y} = \pypx{}{y}2x = 0
+\]
+\[
+\pypx{v}{x} = \pypx{}{x}xy^2 = y^2, \quad \pypx{v}{y} = \pypx{}{y}xy^2 = 2xy
+\]
+
+For the function to be differentiable, the Cauchy-Riemann equations must hold:
+\[
+\pypx{u}{x} = \pypx{v}{y} \quad \text{and} \quad \pypx{u}{y} = -\pypx{v}{x}
+\]
+
+Substituting the values:
+\[
+2 \neq 2xy \quad \text{and} \quad 0 \neq -y^2
+\]
+Since \( \pypx{u}{x} \neq \pypx{v}{y} \) and \( \pypx{u}{y} \neq -\pypx{v}{x} \), the Cauchy-Riemann equations do not hold, meaning the function \( f(z) = 2x + ixy^2 \) is \textbf{not differentiable} at any point \( z_0 \) in the complex plane.
+
+
+
+\subsubsection{Example 2.4.3}
+Let's consider the function \( f(z) = e^z \), where \( z = x + iy \). We can express \( f(z) \) in terms of its real and imaginary parts by using Euler's formula:
+\[
+f(z) = e^z = e^{x+iy} = e^x \cdot e^{iy} = e^x \left( \cos(y) + i \sin(y) \right)
+\]
+Here, the real part \( u(x,y) \) and the imaginary part \( v(x,y) \) are:
+\[
+u(x,y) = e^x \cos(y), \quad v(x,y) = e^x \sin(y)
+\]
+
+To determine if \( f(z) \) is differentiable, we compute the partial derivatives:
+
+\[
+\pypx{u}{x} = \pypx{}{x} \left( e^x \cos(y) \right) = e^x \cos(y)
+\]
+\[
+\pypx{u}{y} = \pypx{}{y} \left( e^x \cos(y) \right) = -e^x \sin(y)
+\]
+\[
+\pypx{v}{x} = \pypx{}{x} \left( e^x \sin(y) \right) = e^x \sin(y)
+\]
+\[
+\pypx{v}{y} = \pypx{}{y} \left( e^x \sin(y) \right) = e^x \cos(y)
+\]
+
+According to the Cauchy-Riemann equations, for \( f(z) \) to be differentiable at \( z_0 \), the following must hold:
+\[
+\pypx{u}{x} = \pypx{v}{y} \quad \text{and} \quad \pypx{u}{y} = -\pypx{v}{x}
+\]
+
+Substituting the values:
+\[
+\pypx{u}{x} = e^x \cos(y) \quad \text{and} \quad \pypx{v}{y} = e^x \cos(y)
+\]
+\[
+\pypx{u}{y} = -e^x \sin(y) \quad \text{and} \quad \pypx{v}{x} = e^x \sin(y)
+\]
+
+We observe that:
+\[
+\pypx{u}{x} = \pypx{v}{y} \quad \text{and} \quad \pypx{u}{y} = -\pypx{v}{x}
+\]
+
+Since the Cauchy-Riemann equations hold for all \( z_0 \), \( f(z) = e^z \) is differentiable (holomorphic) everywhere in the complex plane.
+
+Furthermore, the derivative of \( f(z) \) can be expressed as:
+\[
+f'(z_0) = \pypx{u}{x} + i \pypx{v}{x} = e^{x_0} \left( \cos(y_0) + i \sin(y_0) \right) = e^{x_0 + iy_0} = e^{z_0}
+\]
+
+Thus, we have shown that \( f'(z) = e^z \), confirming that the function \( f(z) = e^z \) is differentiable everywhere in the complex plane.
+
+\subsubsection{Example 2.4.4}
+Let $f(z) = u(z) + iv(z)$ be analytic in a region $D$.  Use the Cauchy-Riemann equations to show that $f'(z)$ is also analytic in $D$. 
+
+
+\begin{proof}
+Let \( f(z) = u(z) + iv(z) \) be analytic in a region \( D \). We want to use the Cauchy-Riemann equations to show that \( f'(z) \) is also analytic in \( D \).
+Since \( f(z) = u(z) + iv(z) \) is analytic in \( D \), the Cauchy-Riemann equations hold:
+\[
+u_x = v_y \quad \text{and} \quad u_y = -v_x
+\]
+where \( u_x = \frac{\partial u}{\partial x} \), \( u_y = \frac{\partial u}{\partial y} \), \( v_x = \frac{\partial v}{\partial x} \), and \( v_y = \frac{\partial v}{\partial y} \).
+
+The derivative of \( f(z) \) with respect to \( z \) is given by:
+\[
+f'(z) = u_x + iv_x
+\]
+
+To show that \( f'(z) \) is analytic, we need to check whether \( f'(z) \) satisfies the Cauchy-Riemann equations. For this, we examine the second partial derivatives by differentiating the Cauchy-Riemann equations:
+
+\[
+\frac{\partial}{\partial x} (u_x = v_y) \quad \text{and} \quad \frac{\partial}{\partial y} (u_y = -v_x)
+\]
+
+Taking the partial derivatives, we obtain:
+\[
+u_{xx} = v_{yx} \quad \text{and} \quad u_{yy} = -v_{xy}
+\]
+where \( u_{xx} = \frac{\partial^2 u}{\partial x^2} \), \( u_{yy} = \frac{\partial^2 u}{\partial y^2} \), \( v_{yx} = \frac{\partial^2 v}{\partial y \partial x} \), and \( v_{xy} = \frac{\partial^2 v}{\partial x \partial y} \).
+
+Now, adding the two equations:
+\[
+u_{xx} + u_{yy} = v_{yx} - v_{xy}
+\]
+
+Since \( f(z) \) is analytic in \( D \), \( u(x,y) \) and \( v(x,y) \) are continuous and differentiable. Therefore, the mixed partial derivatives are equal:
+\[
+v_{yx} = v_{xy}
+\]
+This simplifies to:
+\[
+u_{xx} + u_{yy} = \nabla^2 u = 0
+\]
+
+Similarly, from \( u_y = -v_x \), we have:
+\[
+v_{xx} + v_{yy} = \nabla^2 v = 0
+\]
+
+Since the Cauchy-Riemann equations for \( u(x,y) \) and \( v(x,y) \) imply that \( \nabla^2 u = 0 \) and \( \nabla^2 v = 0 \), it follows that \( f''(z) \) exists and satisfies the Cauchy-Riemann equations. Therefore, \( f'(z) \) is also analytic in \( D \).
+\end{proof}
+\end{document}
