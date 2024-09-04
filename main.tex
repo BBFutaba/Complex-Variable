@@ -914,13 +914,16 @@ Most of the complex function has a derivative similar to what we have studied in
 In fact, most of what we learned in calculus matches what we would expect from complex function that looks like the good old calculus functions. 
 
 \section{Cauchy-Riemann Equations}
+
 In this section we would define a stronger tool to evaluate derivatives of complex functions. We would use partial derivatives we learned when we were studying multivariable calculus. Here is a quick call back for reviewing purposes. Say we have this function $f \colon \R^2 \to \R$ and is denoted as $f(x,y) = xy$. We have
 \begin{align}
 \pypx{}{x}xy= f_x(x,y) = y\\
 \pypx{}{y}xy = f_y(x,y) = x
 \end{align}
 Basically we are treating every variable that we are not interested as a constant, and take the derivative with respect to only what we are interested, as indicated in the \textit{numerator} of the partial derivative symbol.
-Also recall from \textit{equation} \ref{eq:2.1} that we can rewrite a complex function as
+
+\subsection{Cauchy-Riemann Equations}
+Recall from \textit{equation} \ref{eq:2.1} that we can rewrite a complex function as
 \[
 f(x,y) = u(x,y) + iv(x,y)
 \]
@@ -1051,6 +1054,14 @@ Thus, we have shown that \( f'(z) = e^z \), confirming that the function \( f(z)
 \subsubsection{Example 2.4.4}
 Let $f(z) = u(z) + iv(z)$ be analytic in a region $D$.  Use the Cauchy-Riemann equations to show that $f'(z)$ is also analytic in $D$. 
 
+\begin{remark}
+    A function $f(x,y)$ is said to be harmonic in $D \subseteq \R^2$ if and only if
+    \[
+    \forall x,y \in D \colon f_{xx} + f_{yy} = \nabla^2f(x,y) = 0
+    \]
+    We call $\nabla^2f(x,y)$ the Laplacian of the function $f$. 
+\end{remark}
+
 
 \begin{proof}
 Let \( f(z) = u(z) + iv(z) \) be analytic in a region \( D \). We want to use the Cauchy-Riemann equations to show that \( f'(z) \) is also analytic in \( D \).
@@ -1098,4 +1109,551 @@ v_{xx} + v_{yy} = \nabla^2 v = 0
 
 Since the Cauchy-Riemann equations for \( u(x,y) \) and \( v(x,y) \) imply that \( \nabla^2 u = 0 \) and \( \nabla^2 v = 0 \), it follows that \( f''(z) \) exists and satisfies the Cauchy-Riemann equations. Therefore, \( f'(z) \) is also analytic in \( D \).
 \end{proof}
+\subsection{Some Applications}
+\subsubsection{Making a Conservative Vector Field}
+Assume a function $f(z) = u(z)+iv(z)$ is analytic in $\C$, we can define a vector field as follows
+\[
+\Vec{\mathbf{F}} = \tribkt{v(x,y),u(x,y),0}
+\]
+We see that the curl of this field is 
+\[
+\curl \Vec{\mathbf{F}} = u_x - v_y = 0
+\]
+This is according to Cauchy-Riemann Equations. And we have a conservative vector field built from our analytic complex function. 
+
+We can rewrite it as follows. For any complex function $f \colon \C \to \C$ that is analytic in $D$,
+\[
+\Vec{\mathbf{F}} = \tribkt{\text{Im}(f),\text{Re}(f),0}
+\]
+This vector field is conservative in $D$. 
+
+\subsubsection{Creating Orthogonal Curves}
+Recall that for a curve $g(x,y)$, we know that 
+\[
+\nabla g \perp g(x,y)
+\]
+Now we define 2 curves $g,h$ such that 
+\[
+g\cap h = (x_0,y_0)
+\]
+We also know that
+\[
+g \perp h \text{ at $(x_0,y_0)$ } \iff \nabla g(x_0,y_0) \cdot \nabla h(x_0,y_0) = 0
+\]
+Assume $f(z) = u + iv$ where $u,v$ are functions of $x,y$, and $f$ is analytic in $D \subseteq \C$. Let $c_1$ be curve defined by $u(x,y)=k_1$ and $c_2$ be curve defined by $v(x,y)k_2$ for some $k_1,k_2 \in \R$, then we can say that
+\[
+\forall (x,y) \in u \cap v \colon  c_1 \perp c_2 
+\]
+For example, let $f(x) = z^2 = x^2 - y^2 + 2ixy$. We know this function is analytic in $\C$. Then
+\begin{align*}
+    u = x^2 - y^2\\
+    v = 2xy
+\end{align*}
+Then, we define $c_1 \colon x^2-y^2 = 1$, and $c_2 \colon 2xy=1$. We can say that these two hyperbolas are orthogonal to each other at every intersections. 
+
+We can actually prove this via what we learned.
+\begin{proof}
+    Assume $f = u+iv$ is analytic in $\C$. let $c_1 \colon u = k_1$ and $c_2 \colon v = k_2$. We have the following
+    \begin{align*}
+        \nabla u = \tribkt{u_x,u_y}\\
+        \nabla v = \tribkt{v_x,v_y}
+    \end{align*}
+    And we know that
+    \begin{align*}
+        \nabla u \cdot \nabla v = u_xv_x + u_yv_y
+    \end{align*}
+    Since $f(z)$ is analytic, by Cauchy-Riemann Equations we know that
+    \begin{align*}
+        u_x = v_y\\
+        u_y = -v_x\\
+        \therefore \nabla u \cdot \nabla v = u_xu_y - v_xv_y = 0
+    \end{align*}
+    Therefore we can conclude that 
+    \[
+    c_1 \perp c_2
+    \]
+    At all intersections.
+\end{proof}
+
+\subsubsection{Theorem 2.4.5}
+Let $f \colon \C \to \C$, if $f(z) = u(x,y)+iv(x,y)$ is analytic in $D$, then $f^n(z)$ exists for all $n \in +\Z$ in $D$. 
+\begin{proof}
+We will prove this statement by mathematical induction.
+
+Base Case: \( n = 1 \)
+
+When \( n = 1 \), \( f(z) \) is given as analytic in \( D \). By the definition of analytical functions, \( f(z) \) satisfies the Cauchy-Riemann equations:
+\[
+\pypx{u}{x} = \pypx{v}{y}, \quad \pypx{u}{y} = -\pypx{v}{x}
+\]
+Therefore, the first derivative \( f'(z) \) exists and is analytic in \( D \).
+
+Inductive Step:
+
+Assume that \( f^{(k)}(z) \) exists and is analytic in \( D \) for some \( k \in \mathbb{Z}^+ \). This means that the \( k \)-th derivative \( f^{(k)}(z) \) is analytic, and thus satisfies the Cauchy-Riemann equations:
+\[
+\pypx{u_k}{x} = \pypx{v_k}{y}, \quad \pypx{u_k}{y} = -\pypx{v_k}{x}
+\]
+where \( u_k(x,y) \) and \( v_k(x,y) \) are the real and imaginary parts of \( f^{(k)}(z) \), respectively.
+
+Now, consider the derivative \( f^{(k+1)}(z) \):
+\[
+f^{(k+1)}(z) = \frac{d}{dz} f^{(k)}(z)
+\]
+Since \( f^{(k)}(z) \) is analytic, it is differentiable, and its derivative \( f^{(k+1)}(z) \) also exists. Moreover, \( f^{(k+1)}(z) \) will satisfy the Cauchy-Riemann equations, because differentiability implies that the real and imaginary parts \( u_{k+1}(x,y) \) and \( v_{k+1}(x,y) \) are continuously differentiable and satisfy:
+\[
+\pypx{u_{k+1}}{x} = \pypx{v_{k+1}}{y}, \quad \pypx{u_{k+1}}{y} = -\pypx{v_{k+1}}{x}
+\]
+
+Thus, \( f^{(k+1)}(z) \) is analytic in \( D \).
+
+By mathematical induction, \( f^{(n)}(z) \) exists and is analytic in \( D \) for all \( n \in \mathbb{Z}^+ \). 
+\end{proof}
+
+
+
+\chapter{Integration of Complex Functions}
+\section{Single Variable}
+Just like how we integrate something in calculus, we can also integrate a complex function, and it is actually not as counter-intuitive as one may think. First we would look at a single variable function that happens to have some complex number in it. 
+
+If we have a function $f(t) = u(t) + iv(t)$, we can define its definite integral as follows
+\[
+\int_{a}^{b} f(t) dt = \int_{a}^{b}u(t)dt + i\int_{a}^{b}v(t) dt
+\]
+\subsubsection{Example 3.1.1}
+\[
+\int_{0}^{1}t + it^2 dt = \frac{1}{2} + \frac{1}{3}i
+\]
+\section{Fourier Transform}
+The Fourier transform is an \textit{analysis} process, decomposing a complex-valued function \( f(x) \) into its constituent frequencies and their amplitudes. The inverse process is \textit{synthesis}, which recreates \( f(x) \) from its transform.
+
+We can start with an analogy, the \textbf{Fourier series}, which analyzes \( f(x) \) on a bounded interval \( x \in \left[-\frac{P}{2}, \frac{P}{2}\right] \), for some positive real number \( P \). The constituent frequencies are a discrete set of \textit{harmonics} at frequencies \( \frac{n}{P} \), where \( n \in \mathbb{Z} \), whose amplitude and phase are given by the \textit{analysis formula}:
+\[
+c_n = \frac{1}{P} \int_{-P/2}^{P/2} f(x) e^{-i 2\pi \frac{n}{P} x} \, dx
+\]
+
+The actual \textbf{Fourier series} is the \textit{synthesis formula}:
+\[
+f(x) = \sum_{n=-\infty}^{\infty} c_n e^{i 2\pi \frac{n}{P} x}, \quad x \in \left[-\frac{P}{2}, \frac{P}{2}\right]
+\]
+
+The analogy for a function \( f(x) \) can be obtained formally from the analysis formula by taking the limit as \( P \to \infty \), while at the same time taking \( n \) so that \( \frac{n}{P} \to \xi \in \mathbb{R} \). Formally carrying this out, we obtain, for rapidly decreasing functions \( f \), the Fourier transform \( \hat{f} \):
+\begin{align}
+  \hat{f}(\xi) = \int_{-\infty}^{\infty} f(x) e^{-i 2\pi \xi x} \, dx  
+\end{align}
+
+It is easy to see, assuming the hypothesis of rapid decrease, that the integral in \textit{equation 3.1} converges for all real \( \xi \), and (using the Riemann-Lebesgue lemma) that the transformed function \( \hat{f} \) is also rapidly decreasing. The validity of this definition for classes of functions \( f \) that are not necessarily rapidly decreasing is discussed later in this section.
+
+In short, a Fourier transforms of a complex function can be denoted as
+\begin{align}
+    f(z) \xleftrightarrow{\mathcal{F}} \hat{f}\paren{\xi}
+\end{align}
+Here, $\xi$ is the independent variable of the Fourier transform. 
+
+To evaluate a Fourier transform, we simply need to use the Euler's identity to rewrite it as two separate integral. 
+
+\subsubsection{Example 3.2.1}
+Given the function
+\[
+f(x) = 
+\begin{cases}
+    1  &-1 \leq x \leq 1\\
+    0  &\text{else}
+\end{cases}
+\]
+We can find its Fourier transform $\hat{f}(\xi)$. We see that the function evaluates to $0$ outside $\sqbkt{-1,1}$, therefore we can simplify our integral to
+\[
+\hat{f}(\xi) = \int_{-1}^{1}e^{-2\pi i x \xi}\;dx
+\]
+Since $f(x) = 1$ inside our integration bound. And here we can use Euler's identity to expand the integral as
+\[
+\hat{f}(\xi) = \int_{-1}^{1} \cos\paren{2\pi x \xi}\; dx - i\int_{-1}^{1}\sin\paren{2\pi x \xi} \;dx
+\]
+Since sine is an odd function, and we are evaluating it from $-1$ to $1$, we can see that the imaginary part of the integral evaluates to $0$, and we would only need to evaluate the real part.
+\begin{align*}
+    \hat{f}(\xi)&= \int_{-1}^{1} \cos\paren{2\pi x \xi}\; dx\\
+                &= \left. \frac{\sin\paren{2\pi x \xi }}{2\pi \xi} \right|_{-1}^{1}\\
+                &= \frac{\sin\paren{2\pi \xi}}{2 \pi \xi} + \frac{\sin \paren{2\pi \xi}}{2\pi \xi}\\
+                &= \frac{\sin\paren{2 \pi \xi}}{\pi \xi}
+\end{align*}
+We can examine to graph of the original function and the Fourier transform of the function. 
+\begin{figure}[!h]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+            axis lines = middle,
+            xlabel = $x$,
+            ylabel = {$f(x)$},
+            ymin=-0.5, ymax=1.5,
+            xmin=-2, xmax=2,
+            xtick={-1,0,1},
+            ytick={0,1},
+            samples=100,
+            domain=-2:2,
+            width=6cm,
+            height=4cm
+        ]
+        \addplot[
+            thick,
+            blue,
+            domain=-1:1,
+            samples=100
+        ] {1};
+        
+        \addplot[
+            thick,
+            blue,
+            domain=-2:-1,
+            samples=100
+        ] {0};
+        
+        \addplot[
+            thick,
+            blue,
+            domain=1:2,
+            samples=100
+        ] {0};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{The original function \( f(x) \)}
+    \label{fig:3.1}
+\end{figure}
+
+\begin{figure}[!h]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+            axis lines = middle,
+            xlabel = $\xi$,
+            ylabel = {$\hat{f}(\xi)$},
+            ymin=-0.5, ymax=2.5,
+            xmin=-2, xmax=2,
+            xtick={-1,0,1},
+            ytick={0,1},
+            samples=200,
+            domain=-5:5,
+            width=6cm,
+            height=4cm
+        ]
+        \addplot[
+            thick,
+            red,
+            samples=200
+        ] {sin(deg(2*pi*x))/(pi*x)};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{The Fourier transform \( \hat{f}(\xi) \)}
+    \label{fig:3.2}
+\end{figure}
+
+\section{Contour Integration}
+A contour integral in the complex plane behaves like a line integral we have studied in calculus. For a path demonstrated as below.
+\begin{figure}[!h]
+    \centering
+    \begin{tikzpicture}
+    \begin{axis}[
+        axis lines = middle,
+        xlabel = {Real},
+        ylabel = {Imaginary},
+        xmin = 0, xmax = 5,
+        ymin = 0, ymax = 5,
+        xtick = \empty,
+        ytick = \empty,
+        width=10cm, height=10cm,
+        axis equal
+    ]
+    
+    % Points A and B
+    \addplot[
+        only marks,
+        mark=*,
+        mark options={fill=red},
+    ] coordinates {(1,2) (4,4)};
+    
+    % Labels for points A and B
+    \node[label={above left:{$A$}},circle,fill,inner sep=1pt] at (axis cs:1,2) {};
+    \node[label={above right:{$B$}},circle,fill,inner sep=1pt] at (axis cs:4,4) {};
+    
+    % Random path from A to B with an arrow
+    \addplot[
+        thick,
+        smooth,
+        color=blue,
+        -> % Arrow style
+    ] coordinates {(1,2) (2,3) (3,2.5) (4,4)};
+    
+    \end{axis}
+    \end{tikzpicture}
+
+    \caption{A path in the complex plane}
+    \label{fig:3.3}
+\end{figure}
+Define a function $f \colon \C \to \C$, and we can integrate the function along this path, written as
+\begin{align}
+    \int_C f(z) \; dz = \int_{a}^{b} f\paren{z(t)}z'\paren{t}\;dt
+\end{align}
+It looks like a line integral, and we evaluate it just like a line integral. We would first parameterize the path as a function of time, $z(t)$. And then rewrite the original function as $f\paren{z(t)}$, then multiply it with the derivative of the path. Here are some examples.
+
+\subsubsection{Example 3.3.1}
+Let $c$ be the the straight path from $0$ to $1+i$, evaluate
+\[
+\int_C z^2 \; dz
+\]
+To solve this, we first parameterize the path. $c \colon z(t) = t + it$ from $t \in \sqbkt{0,1}$. And then we take its derivative.
+\[
+z'(t) = 1+i
+\]
+Now, we rewrite the original function $f(z)$ as
+\[
+f\paren{z(t)} = \paren{t+it}^2
+\]
+And we can start to evaluate the integral
+\begin{align*}
+   \int_C z^2 \; dz &= \int_{0}^{1} \paren{t+it}^2\paren{1+i}\;dt\\
+                     &= \int_{0}^{1} t^2\paren{1+i}^2\paren{1+i}\;dt \\
+                     &= \paren{1+i}^3 \int_{0}^{1} t^2 \; dt\\
+                     &= \paren{1+i}^3 \cdot \sqbkt{\left.\frac{1}{3}t^3 \right|_{t=0}^{t=1}}\\
+                     &= \frac{\paren{1+i}^3}{2}
+\end{align*}
+
+\subsubsection{Example 3.3.2}
+Evaluate the integral
+\[
+\int_C \frac{1}{z}\;dz
+\]
+Where $c$ is the \textit{positively oriented} unit circle. 
+
+First of all, we find the expression for the path $c \colon z(\theta) = e^{i\theta}$ where $\theta\in\closeopen{0,2\pi}$. Next step we would take the derivative of the path, and it is $z'(\theta) = ie^{i\theta}$
+
+Secondly, we just rewrite the integral as
+\begin{align}
+   &\int_c \frac{1}{z} \; dz \\
+   &= \int_{0}^{2\pi} \frac{1}{e^{i\theta}}\cdot ie^{i\theta} \; d\theta \\
+   &= i\int_{0}^{2\pi}  d\theta\\
+   &= 2\pi i
+\end{align}
+
+\subsubsection{Exercise 3.3.3}
+Integrate the following integral over the path $z(\theta) = 6e^{i\theta}+i$
+\[
+\int_C \frac{1}{z-i} \; dz
+\]
+
+\subsubsection{Exercise 3.3.4}
+Find 
+    \[
+    \int_{C} x \; dz
+    \]
+where $C$ is the directed line segment from the origin to $1+i$.
+
+\subsubsection{Exercise 3.3.5}
+Find 
+\[
+\int_{C} f(z) \; dz
+\]
+where $f(z) = y-x - 3ix^{2}$ where $C$ is the line from the origin to $i$ followed by the line from $i$ to $1+i$. 
+
+\newpage
+\section{Cauchy Integral Formula}
+Assume $f(z) = u+iv$ is analytic on $D \subseteq \C$, and assume $C$ is a \textbf{closed curve} around $D$, then 
+\begin{align}
+    \oint_C f(z) \; dz = 0
+\end{align}
+The proof of this statement will come later in this note. Here is a graph for visualization. 
+\begin{figure}[h!]
+    \centering
+    \begin{tikzpicture}
+    \begin{axis}[
+        axis lines = middle,
+        xlabel = {Real},
+        ylabel = {Imaginary},
+        xmin = 0, xmax = 5,
+        ymin = 0, ymax = 5,
+        xtick = \empty,
+        ytick = \empty,
+        width=7.5cm, height=7.5cm,
+        axis equal
+    ]
+    
+    % Region D as a filled circle
+    \addplot [
+        thick,
+        domain=0:360,
+        samples=100,
+        fill=blue!20,
+        draw=none,
+    ] ({2 + cos(x)}, {2 + sin(x)});
+    
+    % Closed curve C around D
+    \addplot [
+        thick,
+        color=red,
+        domain=0:360,
+        samples=100,
+    ] ({2 + 1*cos(x)}, {2 + 1*sin(x)});
+    
+    % Label for region D
+    \node at (axis cs:2,2) [below right, color=blue] {\Large $D$};
+    
+    % Label for closed curve C
+    \node at (axis cs:3,3) [below right, color=red] {\Large $C$};
+
+    \addplot[
+        thick,
+        smooth,
+        color=blue,
+        -> % Arrow style
+    ] coordinates {(2,1) (2.01,1)};
+
+    \addplot[
+        thick,
+        smooth,
+        color=blue,
+        -> % Arrow style
+    ] coordinates {(2.01,3) (2,3)};
+
+    \end{axis}
+    
+\end{tikzpicture}
+    \caption{A closed curve around $D$}
+    \label{fig:3.4}
+\end{figure}
+
+For example, the integral
+\[
+\oint_C \frac{1}{z}\; dz
+\]
+Will evaluate to $0$ as long as the closed path $C$ does not include the origin where the function is not defined. But if the path $C$ includes the origin, or in other word, the region $D$ bounded by $C$ contains a point where $f(z)= \frac{1}{z}$ is not analytic, then 
+\[
+\oint_C f(z) \; dz = 2 \pi i
+\]
+From here, we would introduce the case of the Cauchy integral formula where $D$ contains a point where the function is not analytic. 
+\begin{align}
+    \oint_c \frac{f(z)}{z-z_0} \; dz = 2\pi i f(z_0)
+\end{align} 
+Here, $z_0$ is the point where the function is not analytic and inside the region $D$ enclosed by $C$. And this is called the \textbf{Cauchy Integral Formula}.
+
+\subsubsection{Example 3.4.1}
+Evaluate the integral, where $c$ is a circle centered at the origin with radius of $5$.
+\[
+\oint_c \frac{z^2+2z+1}{z(z^2+1)}
+\]
+To solve this, we need to factor the denominator.
+\begin{align*}
+     &\oint_c \frac{z^2+2z+1}{z(z^2+1)}\\
+    =&\oint_c \frac{z^2+2z+1}{z(z+i)(z-i)}
+\end{align*}
+We see that the integrand has 3 singularities at $z_1 = 0, z_2 = -1, z_3 = i$. One thing we note is that, if there are multiple singularities, we can define 3 different $f(z)$ and utilize the formula multiple times. For this question, we would define 3 different $f(z)$.
+\begin{align*}
+    f_1(z) = \frac{z^2+2z+1}{(z+i)(z-i)}\\
+    f_2(z) = \frac{z^2+2z+1}{z(z-i)}\\
+    f_3(z) = \frac{z^2+2z+1}{z(z+i)}
+\end{align*}
+Now we make the observation that all 3 singularities are enclosed in the curve $c$, therefore we will take all 3 into account. The integral is evaluated to
+\begin{align*}
+     &\oint_c \frac{z^2+2z+1}{z(z^2+1)}\\
+    =&2\pi i f_1(z_1) + 2\pi i f_2(z_2) + 2\pi i f_3(z_3)\\
+    =&2\pi i
+\end{align*}
+To prove that this methods works require partial faction decomposition and breaking it into different integrals. But it will eventually work out the same way as just adding them together.
+
+\section{Generalized Cauchy Integral Formula}
+If we look at the Cauchy integral formula
+\[
+\oint_c \frac{f(w)dw}{w-z} = 2\pi i f(z)
+\]
+We can take its derivative on both sides with respect to $z$ as follows
+\[
+\oint_c \dydx{}{z} \frac{f(w)dw}{w-z} = 2\pi i f'(z)
+\]
+And this simplifies to
+\[
+\oint_c \frac{f(w)dw}{(w-z)^2} = 2 \pi i f'(z)
+\]
+And we can do re-arrange this formula a little to obtain
+\begin{align}
+    f'(z) = \frac{1}{2\pi i }\oint_c \frac{f(w)}{(w-z)^2}\;dw
+\end{align}
+We can in fact repeat this process one more time and obtain
+\begin{align}
+    f''(z) = \frac{1\cdot 2}{2\pi i}\oint_c \frac{f(w)}{(w-z)^3}\;dw
+\end{align}
+And another
+\begin{align}
+    f'''(z) = \frac{3!}{2\pi i} \oint_c \frac{f(w)}{(w-z)^4}\;dw
+\end{align}
+And we can see an obvious trend here, where the $k$-th derivative can be expressed as
+\begin{align}
+    f^{(k)}(z) = \frac{k!}{2\pi i}\oint_c \frac{f(w)}{(w-z)^{k+1}}\;dw
+\end{align}
+And this is called the \textbf{Generalized Cauchy Integral Formula}
+
+\section{Laurent Series}
+
+Before delving into \textit{residues}, an important concept we will look at in the next section, it's essential to understand the \textbf{Laurent series}. Given a function \(f(w)\) that is analytic in an annulus \(r_1 < |w - z| < r_2\), the function can be expanded into a Laurent series around \(z\) as:
+\[
+f(w) = \sum_{n=-\infty}^{\infty} a_n (w - z)^n,
+\]
+where the coefficients \(a_n\) are given by:
+\[
+a_n = \frac{1}{2\pi i} \oint_{c} \frac{f(w)}{(w - z)^{n+1}}\, dw,
+\]
+with \(c\) being a contour within the annulus. You can see this is really similar to the formula we just discussed.
+
+This series generalizes the concept of a \textit{Taylor series} to include terms with negative powers, which are particularly important when dealing with singularities.
+
+
+The Laurent series expansion of \(f(w)\) is crucial in defining residues. Specifically, the residue of \(f(w)\) at \(z\) is the coefficient \(a_{-1}\) in the Laurent series:
+\[
+\text{Res}(f, z) = a_{-1} = \frac{1}{2\pi i} \oint_{c} \frac{f(w)}{w - z} \, dw.
+\]
+Where $\text{Res}(f,z)$ means the residue of the function $f$ at $z$. 
+
+\section{Residue}
+
+Now that we have established the Generalized Cauchy Integral Formula and the Laurent series, we can utilize this knowledge to introduce the concept of \textbf{residues} in complex analysis.
+
+The residue of a function \(f(w)\) at a point \(z\) is closely related to the value of a contour integral involving \(f(w)\). Specifically, the residue is the coefficient of \(\frac{1}{w - z}\) in the Laurent series expansion of \(f(w)\) around \(z\).
+
+
+Using the Generalized Cauchy Integral Formula, we observe that when \(k = 0\), the formula reduces to the classic Cauchy Integral Formula:
+\[
+f(z) = \frac{1}{2\pi i} \oint_c \frac{f(w)}{w - z} \, dw.
+\]
+Here, the integral represents the residue of \(\frac{f(w)}{w - z}\) at \(w = z\).
+
+For \(k = 1\), we obtained:
+\[
+f'(z) = \frac{1}{2\pi i} \oint_c \frac{f(w)}{(w - z)^2} \, dw.
+\]
+This integral can be interpreted as involving the residue of \(\frac{f(w)}{(w - z)^2}\).
+
+Thus, the residues provide a way to calculate the integral of meromorphic functions around isolated singularities. In particular, for a meromorphic function \(g(w) = \frac{f(w)}{(w - z)^{k+1}}\), the residue at \(z\) contributes directly to the value of the integral. This observation leads us naturally to define the residue:
+\[
+\text{Res}(f, z) = \frac{1}{2\pi i} \oint_c \frac{f(w)}{w - z} \, dw,
+\]
+where \(c\) is a small contour around \(z\).
+
+Residues play a central role in evaluating contour integrals, particularly in cases where the integrand has poles. They allow us to compute integrals over complex contours more efficiently and are the foundation of many powerful theorems, such as the \textbf{Residue Theorem}.
+
+\subsubsection{Meromorphic Functions}
+A Meromorphic is a complex function that is holomorphic everywhere except for some isolated singularity in $D$. Think of it as a function that is very nice except for at a particular point such as $f(x) = \frac{1}{x^2}$ at $x=0$ in our good-old real function. 
+
+\section{Residue Theorem}
+
+The Residue Theorem states that if \(f(w)\) is a meromorphic function with isolated singularities inside a contour \(c\), the integral of \(f(w)\) around \(c\) is \(2\pi i\) times the sum of the residues of \(f(w)\) at those singularities:
+\[
+\oint_c f(w) \, dw = 2\pi i \sum \text{Res}(f, z_i),
+\]
+where \(z_i\) are the isolated singularities of \(f(w)\) inside \(c\).
+
+With the understanding of this Theorem, you can now see why the method we used to integrate in \textit{Example 3.4.1} worked as it is. 
+
+
+
+
+
+
+
 \end{document}
+
