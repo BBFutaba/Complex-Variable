@@ -135,7 +135,44 @@ Since $c^2 + d^2$ is a real number, first simplify the numerator and then distri
 
 \newpage
 \section{Polar Form of Complex Number}
-\subsection{The conplex Plane}
+\subsection{Euler's Identity}
+Before we start, we can go through how this great equation is derived.
+\[
+e^{i\theta} = \cos\theta+i\sin\theta
+\]
+First we would recall the Taylor series expansion of $e^{ax}$ as follows
+\[
+e^{ax} = \sum_{n=0}^{\infty} =1 + ax + \frac{a^2x^2}{2!}+ \frac{a^3x^3}{3!}\ldots
+\]
+And if we are to replace $a$ with the imaginary number, which is also a constant, $i$, we have
+\[
+e^{ix} = \sum_{n=0}^{\infty} =1 + ix + \frac{i^2x^2}{2!}+ \frac{i^3x^3}{3!}+\frac{i^4x^4}{4!}\ldots
+\]
+But we know by definition that $i^2 = -1$, $i^3 = -i$, and $i^4=1$, we can simplify
+\[
+e^{ix} = \sum_{n=0}^{\infty} =1 + ix - \frac{x^2}{2!} - \frac{ix^3}{3!} + \frac{x^4}{4!} \ldots
+\]
+Now if we look remember the Taylor series expansion of $\cos x$ and $\sin x$, we have
+\[
+\cos x = \sum_{n=0}^{\infty} \frac{(-1)^n x^{2n}}{(2n)!} = 1 - \frac{x^2}{2!} + \frac{x^4}{4!} - \frac{x^6}{6!} + \ldots
+\]
+\[
+\sin x = \sum_{n=0}^{\infty} \frac{(-1)^n x^{2n+1}}{(2n+1)!} = x - \frac{x^3}{3!} + \frac{x^5}{5!} - \frac{x^7}{7!} + \ldots
+\]
+Since $i$ is a constant, we can simply multiply it to $\sin x$, and obtain
+\[
+i\sin x = i\sum_{n=0}^{\infty} = ix - \frac{ix^3}{3!} + \frac{ix^5}{5!} - \frac{ix^7}{7!} + \ldots
+\]
+Notice that we can regroup the terms of $e^{ix}$
+\[
+e^{ix} = \left(1 - \frac{x^2}{2!} + \frac{x^4}{4!} - \frac{x^6}{6!} + \ldots \right) + i \left(x - \frac{x^3}{3!} + \frac{x^5}{5!} - \ldots \right).
+\]
+This in turn shows that
+\[
+e^{ix} = \cos x + i\sin x
+\]
+
+\subsection{The complex Plane}
 
 \begin{figure}[!h]
     \centering
