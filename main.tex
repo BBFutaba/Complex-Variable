@@ -1212,41 +1212,6 @@ We can actually prove this via what we learned.
     At all intersections.
 \end{proof}
 
-\subsubsection{Theorem 2.4.5}
-Let $f \colon \C \to \C$, if $f(z) = u(x,y)+iv(x,y)$ is analytic in $D$, then $f^n(z)$ exists for all $n \in +\Z$ in $D$. 
-\begin{proof}
-We will prove this statement by mathematical induction.
-
-Base Case: \( n = 1 \)
-
-When \( n = 1 \), \( f(z) \) is given as analytic in \( D \). By the definition of analytical functions, \( f(z) \) satisfies the Cauchy-Riemann equations:
-\[
-\pypx{u}{x} = \pypx{v}{y}, \quad \pypx{u}{y} = -\pypx{v}{x}
-\]
-Therefore, the first derivative \( f'(z) \) exists and is analytic in \( D \).
-
-Inductive Step:
-
-Assume that \( f^{(k)}(z) \) exists and is analytic in \( D \) for some \( k \in \mathbb{Z}^+ \). This means that the \( k \)-th derivative \( f^{(k)}(z) \) is analytic, and thus satisfies the Cauchy-Riemann equations:
-\[
-\pypx{u_k}{x} = \pypx{v_k}{y}, \quad \pypx{u_k}{y} = -\pypx{v_k}{x}
-\]
-where \( u_k(x,y) \) and \( v_k(x,y) \) are the real and imaginary parts of \( f^{(k)}(z) \), respectively.
-
-Now, consider the derivative \( f^{(k+1)}(z) \):
-\[
-f^{(k+1)}(z) = \frac{d}{dz} f^{(k)}(z)
-\]
-Since \( f^{(k)}(z) \) is analytic, it is differentiable, and its derivative \( f^{(k+1)}(z) \) also exists. Moreover, \( f^{(k+1)}(z) \) will satisfy the Cauchy-Riemann equations, because differentiability implies that the real and imaginary parts \( u_{k+1}(x,y) \) and \( v_{k+1}(x,y) \) are continuously differentiable and satisfy:
-\[
-\pypx{u_{k+1}}{x} = \pypx{v_{k+1}}{y}, \quad \pypx{u_{k+1}}{y} = -\pypx{v_{k+1}}{x}
-\]
-
-Thus, \( f^{(k+1)}(z) \) is analytic in \( D \).
-
-By mathematical induction, \( f^{(n)}(z) \) exists and is analytic in \( D \) for all \( n \in \mathbb{Z}^+ \). 
-\end{proof}
-
 
 
 \chapter{Integration of Complex Functions}
